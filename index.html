@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<meta name="branch:deeplink:something" content="baddest" />
+<meta name="branch:deeplink:joonstest" content="one" />
+<meta property="al:ios:url" content="stubhub://stubhub.com/?performer_id=581&amp;OSID=ALIOSMOFO">
+<meta name="twitter:app:url:googleplay" content="stubhub://stubhub.com/?event_id=103820374&amp;GCID=Twittergoogleplayurl">
+<meta property="branch:deeplink:$deeplink_path" content="propertydeeplinkpath">
+<meta name="branch:deeplink:$deeplink_path" content="namedeeplinkpath">
+
+<html>
+<head>
+  <script type="text/javascript">
+    (function(b,r,a,n,c,h,_,s,d,k){if(!b[n]||!b[n]._q){for(;s<_.length;)c(h,_[s++]);d=r.createElement(a);d.async=1;d.src="https://cdn.branch.io/branch-latest.min.js";k=r.getElementsByTagName(a)[0];k.parentNode.insertBefore(d,k);b[n]=h}})(window,document,"script","branch",function(b,r){b[r]=function(){b._q.push([r,arguments])}},{_q:[],_v:1},"addListener applyCode autoAppIndex banner closeBanner closeJourney creditHistory credits data deepview deepviewCta first getCode init link logout redeem referrals removeListener sendSMS setBranchViewData setIdentity track validateCode trackCommerceEvent logEvent disableTracking".split(" "), 0);
+
+    branch.init('key_live_diIgmYsg6xUw4ggK7YN0ZpmjvxgOf0b8', function(err,data) {
+      console.log(err,data);});
+
+    function sendSMS(form) {
+      var phone = form.phone.value;
+      var linkData = {
+        tags: [],
+        campaign: 'Organic SMS',
+        channel: 'web',
+        feature: 'smsfeaturecustomname',
+        data: {
+          'foo': 'bar'
+        }
+      };
+      var options = {};
+      var callback = function(err, result) {
+        if (err) {
+          alert("Sorry, something went wrong.");
+        }
+        else {
+          alert("SMS sent!");
+
+        }
+      };
+      branch.sendSMS(phone, linkData, options, callback);
+      form.phone.value = "";
+    }
+
+    branch.setBranchViewData({
+      data: {
+        '$deeplink_path': 'picture/12345',
+        'picture_id': '12345',
+        'user_id': '45123'
+      }
+    });
+  </script>
+</head>
+<body>
+  <h1>Hello Visitor</h1>
+  <p>This is Derrick's Deep Link Test Page</p>
+  <form>
+    <select name="Colors">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    <br><br>
+    <button id="button1">deep link 1</button>
+    <a id="anchor1" href="#">New deep link with new payload (link dictionary)</a>
+    <br><br>
+    <button id="button2">deep link 2</button>
+    <a id="anchor2" href='#'>New deep link with copied link dictionary from referrer</a>
+    <br><br>
+    <button id="button3">deep link 3</button>
+    <a id="anchor3" href='#'>New deep link with no link data specified</a>
+    <br><br>
+    <button id="button4">deep link 4</button>
+    <a id="anchor4" href='#'>New deep link with new payload and with do not process param added </a>
+    <br><br>
+    <button id="button11">deep link 11</button>
+    <a id="anchor11" href='#'>Referrer link with keys key1='newData' and key2='newData'</a>
+    <br><br>
+    <button id="button5">deep link 5</button>
+    <a id="anchor5" href='#'>Referrer link with branch flow type param added</a>
+    <br>
+    <a id="anchor6" href='#'>Referrer link with branch flow type param added and new key/value</a>
+    <br><br>
+    <button id="button7">deep link 7</button>
+    <a id="anchor7" href='#'>Referrer link with branch flow type param added and do_not_process</a>
+    <br>
+    <a id="anchor8" href='#'>Referrer link with branch flow type param added and do_not_process and new key/value</a>
+    <br><br>
+    <button id="button9">deep link 9</button>
+    <a id="anchor9" href='#'>Referrer link with branch flow type param added and deeplink_no_attribution</a>
+    <br>
+    <a id="anchor10" href='#'>Referrer link with branch flow type param added and deeplink_no_attribution and new key/value</a>
+    <br><br>
+    <button id="buttonIos">Download iOS</button>
+    <br><br>
+    <button id="buttonAndroid">Download Android</button>
+    <!-- <input type="submit"> -->
+  </form>
+  <script type="text/javascript">
+
+    var linkData = {
+      campaign: 'content 123',
+      channel: 'facebook',
+      feature: 'dashboard',
+      stage: 'new user',
+      tags: [ 'tag1', 'tag2', 'tag3' ],
+      alias: '',
+      data: {
+        'custom_bool': true,
+        'custom_int': Date.now(),
+        'custom_string': 'hello',
+        '$og_title': 'Title',
+        '$og_description': 'Description',
+        '$og_image_url':'http://lorempixel.com/400/400'
+      }
+    };
+
+
+    branch.link(linkData, function(err, link) {
+      document.getElementById('button1').onclick = function() {
+        window.open(link || err);
+      };
+      document.getElementById('anchor1').href = link || err;
+    });
+
+    branch.data(function(err,data) {
+      console.log(err,data);
+      branch.link(data, function(err, link) {
+        document.getElementById('button2').onclick = function() {
+          window.open(link || err);
+        };
+        document.getElementById('anchor2').href = link || err;
+      });
+    });
+
+    branch.link({}, function(err, link) {
+      document.getElementById('button3').onclick = function() {
+        window.open(link || err);
+      };
+      document.getElementById('anchor3').href = link || err;
+    });
+
+    var linkData2 = {
+      campaign: 'content 123 - link 2',
+      channel: 'facebook',
+      feature: 'dashboard',
+      stage: 'new user',
+      tags: [ 'tag1', 'tag2', 'tag3' ],
+      alias: '',
+      data: {
+        'custom_bool': true,
+        'custom_int': Date.now(),
+        'custom_string': 'hello',
+        '$og_title': 'Title',
+        '$og_description': 'Description',
+        '$og_image_url':'http://lorempixel.com/400/400',
+        '$do_not_process': true
+      }
+    };
+
+    branch.link(linkData2, function(err, link) {
+      document.getElementById('button4').onclick = function() {
+        window.open(link || err);
+      };
+      document.getElementById('anchor4').href = link || err;
+    });
+
+    branch.data(function(err, data) {
+      console.log(err, data); 
+    //  var dataObj = JSON.parse(data);
+    var nextLink = data.data_parsed["~referring_link"] + "?__branch_flow_type=viewapp";
+    document.getElementById('button5').onclick = function() {
+      window.open(nextLink || err);
+    };
+    document.getElementById('anchor5').href = nextLink || err;
+    nextLink = nextLink + "&landing=true";
+    document.getElementById('anchor6').href = nextLink || err;
+  });
+
+    branch.data(function(err, data) {
+      console.log(err, data); 
+    //  var dataObj = JSON.parse(data);
+    var nextLink = data.data_parsed["~referring_link"] + "?__branch_flow_type=viewapp&$do_not_process=true";
+    document.getElementById('button7').onclick = function() {
+      window.open(nextLink || err);
+    };
+    document.getElementById('anchor7').href = nextLink || err;
+    nextLink = nextLink + "&monster_name=do_not_process";
+    document.getElementById('anchor8').href = nextLink || err;
+  });
+
+    branch.data(function(err, data) {
+      console.log(err, data); 
+    //  var dataObj = JSON.parse(data);
+    var nextLink = data.data_parsed["~referring_link"] + "?__branch_flow_type=viewapp&$deeplink_no_attribution=true";
+    document.getElementById('button9').onclick = function() {
+      window.open(nextLink || err);
+    };
+    document.getElementById('anchor9').href = nextLink || err;
+    nextLink = nextLink + "&monster_name=deeplink_no_attribution";
+    document.getElementById('anchor10').href = nextLink || err;
+  });
+
+    branch.data(function(err, data) {
+      console.log(err, data); 
+    //  var dataObj = JSON.parse(data);
+    var nextLink = data.data_parsed["~referring_link"] + "?key1=newData&key2=newData";
+    document.getElementById('button11').onclick = function() {
+      window.open(nextLink || err);
+    };
+    document.getElementById('anchor11').href = nextLink || err;
+  });
+
+    var linkDataIos = {
+      campaign: 'install app',
+      channel: 'website',
+      feature: 'install cta ios',
+      tags: [ 'ios' ],
+      alias: '',
+      data: {
+      }
+    };
+
+    branch.link(linkDataIos, {make_new_link:false}, function(err, link) {
+      document.getElementById('buttonIos').onclick = function() {
+        window.open(link || err);
+      };
+      console.log(link);
+    });
+
+    var linkDataAndroid = {
+      campaign: 'install app',
+      channel: 'website',
+      feature: 'install cta Android',
+      tags: [ 'android' ],
+      alias: '',
+      data: {
+      }
+    };
+
+    branch.link(linkDataAndroid, {make_new_link:false}, function(err, link) {
+      document.getElementById('buttonAndroid').onclick = function() {
+        window.open(link || err);
+      };
+      console.log(link);
+    });
+
+
+    var listener = function(event, data) { console.log(event, data); }
+
+    // Specify an event to listen for
+    //branch.addListener('willShowJourney', listener);
+
+    // Listen for all events
+    branch.addListener(listener);
+
+    //branch.closeJourney(function(err) { console.log(err); });
+    //branch.track('pageview');
+
+    //document.getElementById('UserAgent').value = navigator.userAgent;
+  </script>
+
+    <!--     <br><br><br>
+        <a id="anchor4" href="morepages/page2.html">page2</a>
+        <br><br><br>
+        <a id="newlink" href="https://app.discover.com/R9M0c5JVdV">discoverlink</a>
+            <br><br><br>
+        <a id="newlink" href="https://thumbtack.app.link/Jd469ZqFYR">thumbtacklinkwedding</a>
+                <br><br><br>
+        <a id="newlink" href="https://thumbtack.app.link/B90easRCsV">thumbtacklinkcabinetnearme</a>
+        <br><br>
+        <a id="something1" href="adobelightroom:///learn/tutorial/6764e697-07c0-4148-bf4a-27d85537a0e9?link_click_id=link-657245211160155702">link 1</a>
+          <br><br>
+        <a id="something2" href="adobelightroom://learn/tutorial/6764e697-07c0-4148-bf4a-27d85537a0e9?link_click_id=link-657245211160155702">link 2</a>
+      -->
+      Send SMS
+      <form onsubmit="sendSMS(this); return false;">
+        <input id="phone" name="phone" type="tel" placeholder="(650) 123-4567" />
+        <br/>
+        <input type="submit"/>
+      </form>
+     <!--
+          <input type="text" id="UserAgent">
+        <a href="https://app.liven.com.au/DlEGOSZJES">https://app.liven.com.au/DlEGOSZJES</a>
+        <br><br>
+        <a href="https://liven.app.link/DlEGOSZJES">https://liven.app.link/DlEGOSZJES</a>
+      -->
+      <a href="branchstersdj://path">BRANCHSTERSDJURI</a>
+      <a>
+    </body>
+
+    </html>
